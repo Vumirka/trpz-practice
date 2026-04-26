@@ -152,11 +152,11 @@ nexia-project/
 
 | Дашборд | Завдання |
 |:---:|:---:|
-| *![Kanban preview](https://github.com/Vumirka/trpz-practice/blob/main/png/Дашборд.png?raw=true)* | *![Kanban preview](https://github.com/Vumirka/trpz-practice/blob/main/png/Завдання.png?raw=true)* |
+| *![Kanban preview](https://github.com/Vumirka/trpz-practice/blob/main/png/Дашборд.png)* | *![Kanban preview](https://github.com/Vumirka/trpz-practice/blob/main/png/Завдання.png)* |
 
 | Kanban | Нотатки |
 |:---:|:---:|
-| *![Kanban preview](https://github.com/Vumirka/trpz-practice/blob/main/png/Kanban.png?raw=true)* | *![Kanban preview](https://github.com/Vumirka/trpz-practice/blob/main/png/Нотатки.png?raw=true)* |
+| *![Kanban preview](https://github.com/Vumirka/trpz-practice/blob/main/png/Kanban.png)* | *![Kanban preview](https://github.com/Vumirka/trpz-practice/blob/main/png/Нотатки.png)* |
 
 ---
 
