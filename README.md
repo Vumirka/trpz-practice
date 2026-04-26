@@ -2,7 +2,7 @@
 
 # Практика ТРПЗ - Ріжкевич Вікторія
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&pause=1000&color=7C5CBF&center=true&vCenter=true&width=500&lines=NEXIA+%F0%9F%92%9C+Workspace+App;HTML+%2B+CSS+%2B+JavaScript;%D0%9F%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D0%BA%D0%B0+%D0%A2%D0%A0%D0%9F%D0%97;%E2%80%9C%CB%9A%E2%82%8A%E2%80%A7%EA%92%B0%E0%A8%86+%E2%99%A1+%E0%A8%86%EA%92%B1+%E2%80%A7%E2%82%8A%CB%9A%E2%80%9D" alt="Typing SVG" />
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&pause=1000&color=7C5CBF&center=true&vCenter=true&width=500&lines=NEXIA+%F0%9F%92%9C+Workspace+App;HTML+%2B+CSS+%2B+JavaScript;" alt="Typing SVG" />
 
 ![HTML](https://img.shields.io/badge/HTML-purple?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS](https://img.shields.io/badge/CSS-💜-blueviolet?style=for-the-badge&logo=css3&logoColor=white)
