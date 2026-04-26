@@ -1,0 +1,639 @@
+/* ════════════════════════════════════════════
+   05-modules.css — Стилі окремих сторінок/модулів
+   ════════════════════════════════════════════ */
+
+/* ══════════════════════════════════
+   ДАШБОРД — головна сторінка
+   ══════════════════════════════════ */
+.greeting {
+  font-family: 'Unbounded', sans-serif;
+  font-size: clamp(1.1rem, 2.2vw, 1.65rem);
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.greeting-sub {
+  font-size: 0.88rem;
+  color: var(--text2);
+  margin-bottom: 22px;
+}
+
+/* ── Швидкі дії ── */
+.quick-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+
+.quick-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  font-size: 0.81rem;
+  font-weight: 700;
+  color: var(--text2);
+  cursor: pointer;
+  transition: all 0.18s;
+}
+.quick-btn:hover {
+  background: var(--accent4);
+  color: var(--accent);
+  border-color: var(--accent3);
+  transform: translateY(-1px);
+}
+.quick-btn svg { flex-shrink: 0; }
+
+/* ══════════════════════════════════
+   ЗАВДАННЯ
+   ══════════════════════════════════ */
+.task-input-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.task-input {
+  flex: 1;
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 11px 14px;
+  font-size: 0.88rem;
+  color: var(--text);
+  transition: border-color 0.18s;
+}
+
+.task-input:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+
+.task-input::placeholder {
+  color: var(--text3);
+}
+
+/* ── Список завдань ── */
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 11px 14px;
+  transition: border-color 0.18s, transform 0.15s;
+  animation: fadeUp 0.25s both;
+}
+
+.task-item:hover {
+  transform: translateX(2px);
+  border-color: var(--accent3);
+}
+
+.task-item.done {
+  opacity: 0.55;
+}
+
+.task-item.done .task-text {
+  text-decoration: line-through;
+  color: var(--text3);
+}
+
+/* ── Чекбокс завдання ── */
+.task-check {
+  width: 20px; height: 20px;
+  flex-shrink: 0;
+  border: 2px solid var(--accent3);
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+}
+.task-check.checked { background: var(--accent); border-color: var(--accent); }
+
+.task-text {
+  flex: 1;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.task-meta {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.task-delete {
+  color: var(--text3);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  transition: color 0.15s;
+}
+
+.task-delete:hover {
+  color: var(--danger);
+}
+/* ── Пріоритети (колір + текст) ── */
+.task-priority {
+  font-size: 0.67rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 99px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.priority-high { background: #ffe4e4; color: #c97070; }
+.priority-med  { background: #fff3e0; color: #d4a96a; }
+.priority-low  { background: #e6f4ee; color: #70b8a0; }
+[data-theme="dark"] .priority-high { background: #3d1e1e; }
+[data-theme="dark"] .priority-med  { background: #3d2e10; }
+[data-theme="dark"] .priority-low  { background: #1a3029; }
+
+.task-due {
+  font-size: 0.7rem;
+  color: var(--text3);
+  font-weight: 600;
+}
+
+.task-due.overdue {
+  color: var(--danger);
+}
+
+/* ── Фільтри списку ── */
+.task-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 14px;
+}
+.filter-chip {
+  padding: 5px 13px;
+  border-radius: 99px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1.5px solid var(--border);
+  background: var(--card);
+  color: var(--text2);
+  transition: all 0.15s;
+}
+
+.filter-chip.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.filter-chip:hover:not(.active) {
+  background: var(--bg2);
+}
+
+/* ── Підзавдання ── */
+.task-subtasks {
+  margin-top: 6px;
+  padding: 8px 14px 8px 46px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.subtask-item {
+  font-size: 0.8rem;
+  color: var(--text2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ══════════════════════════════════
+   KANBAN — дошка задач
+   ══════════════════════════════════ */
+.kanban-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.kanban-col {
+  background: var(--bg2);
+  border-radius: var(--radius2);
+  padding: 14px;
+  border: 1.5px solid var(--border);
+  min-height: 200px;
+}
+
+.kanban-col-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.kanban-col-title {
+  font-weight: 800;
+  font-size: 0.82rem;
+  color: var(--text2);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+/* ── Кольорові крапки колонок ── */
+.col-dot        { width: 8px; height: 8px; border-radius: 50%; }
+.dot-todo       { background: var(--text3); }
+.dot-progress   { background: var(--warn); }
+.dot-done       { background: var(--success); }
+
+.kanban-count {
+  background: var(--border);
+  color: var(--text3);
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 99px;
+}
+
+.kanban-cards { display: flex; flex-direction: column; gap: 7px; }
+
+.kanban-card {
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 13px;
+  cursor: pointer;
+  transition: border-color 0.18s, transform 0.15s, box-shadow 0.18s;
+  animation: fadeUp 0.25s both;
+  position: relative;
+}
+.kanban-card:hover {
+  border-color: var(--accent3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px var(--shadow2);
+}
+.kanban-card-title   { font-weight: 700; font-size: 0.86rem; color: var(--text); margin-bottom: 8px; }
+.kanban-card-desc    { font-size: 0.76rem; color: var(--text2); margin-bottom: 8px; line-height: 1.5; }
+.kanban-card-footer  { display: flex; align-items: center; justify-content: space-between; }
+.kanban-card-tag     { display: inline-block; padding: 2px 8px; border-radius: 99px; font-size: 0.66rem; font-weight: 800; background: var(--accent4); color: var(--accent); }
+.kanban-card-date    { font-size: 0.68rem; color: var(--text3); font-weight: 600; }
+
+.kanban-add-btn {
+  width: 100%;
+  margin-top: 8px;
+  padding: 9px;
+  border-radius: 10px;
+  border: 1.5px dashed var(--border);
+  background: transparent;
+  color: var(--text3);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.kanban-add-btn:hover { background: var(--card); border-color: var(--accent3); color: var(--accent); }
+
+/* ══════════════════════════════════
+   НОТАТКИ
+   ══════════════════════════════════ */
+.notes-toolbar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 18px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.notes-search {
+  flex: 1;
+  min-width: 160px;
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 11px;
+  padding: 9px 14px;
+  font-size: 0.86rem;
+  color: var(--text);
+}
+.notes-search:focus { border-color: var(--accent); }
+.notes-search::placeholder { color: var(--text3); }
+
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 14px;
+}
+
+.note-card {
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius2);
+  padding: 18px;
+  transition: border-color 0.18s, transform 0.18s;
+  animation: fadeUp 0.25s both;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* Кольорова смужка зверху нотатки ── */
+.note-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--note-color, var(--accent3));
+}
+
+.note-card:hover {
+  border-color: var(--accent3);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px var(--shadow2);
+}
+
+.note-title  { font-weight: 800; font-size: 0.92rem; color: var(--text); margin-bottom: 7px; }
+.note-body   { font-size: 0.81rem; color: var(--text2); line-height: 1.55; white-space: pre-wrap; word-break: break-word; }
+.note-image  { width: 100%; border-radius: 8px; margin-top: 10px; max-height: 160px; object-fit: cover; }
+
+.note-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.note-date { font-size: 0.68rem; color: var(--text3); font-weight: 600; }
+
+/* Кнопки нотатки — видимі тільки на ховер ── */
+.note-actions { display: flex; gap: 6px; opacity: 0; transition: opacity 0.15s; }
+.note-card:hover .note-actions { opacity: 1; }
+
+.note-tag { font-size: 0.66rem; font-weight: 800; padding: 2px 7px; border-radius: 99px; background: var(--accent4); color: var(--accent); }
+
+/* ── Кнопка "додати нотатку" ── */
+.add-note-btn {
+  background: var(--bg2);
+  border: 2px dashed var(--border);
+  border-radius: var(--radius2);
+  padding: 36px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.18s;
+  color: var(--text3);
+  font-weight: 700;
+}
+.add-note-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent4);
+  transform: scale(1.02);
+}
+
+/* ══════════════════════════════════
+   ФІНАНСИ
+   ══════════════════════════════════ */
+.income-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.income-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+.income-table th {
+  text-align: left;
+  padding: 11px 14px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text3);
+  border-bottom: 1.5px solid var(--border);
+}
+.income-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  font-weight: 500;
+  vertical-align: middle;
+}
+.income-table tr:last-child td  { border-bottom: none; }
+.income-table tr:hover td       { background: var(--bg2); }
+
+.income-type { display: inline-block; padding: 2px 8px; border-radius: 99px; font-size: 0.68rem; font-weight: 800; }
+.type-income  { background: #e6f4ee; color: #70b8a0; }
+.type-expense { background: #ffe4e4; color: #c97070; }
+[data-theme="dark"] .type-income  { background: #1a3029; }
+[data-theme="dark"] .type-expense { background: #3d1e1e; }
+
+/* ── Позитивна / негативна сума ── */
+.income-amount-pos { color: var(--success); font-weight: 800; font-family: 'Unbounded', sans-serif; font-size: 0.88rem; }
+.income-amount-neg { color: var(--danger);  font-weight: 800; font-family: 'Unbounded', sans-serif; font-size: 0.88rem; }
+
+/* ══════════════════════════════════
+   ЗАМОВЛЕННЯ
+   ══════════════════════════════════ */
+.orders-list { display: flex; flex-direction: column; gap: 10px; }
+
+.order-card {
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 15px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: border-color 0.18s, transform 0.15s;
+  animation: fadeUp 0.25s both;
+}
+.order-card:hover { border-color: var(--accent3); transform: translateX(3px); }
+
+.order-num {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: var(--accent);
+  background: var(--accent4);
+  padding: 5px 9px;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+.order-info    { flex: 1; }
+.order-client  { font-weight: 800; font-size: 0.9rem; color: var(--text); }
+.order-desc    { font-size: 0.78rem; color: var(--text2); margin-top: 2px; }
+
+/* ── Статуси замовлень ── */
+.order-status   { padding: 4px 10px; border-radius: 99px; font-size: 0.7rem; font-weight: 800; white-space: nowrap; }
+.status-new       { background: var(--accent4); color: var(--accent); }
+.status-progress  { background: #fff3e0; color: #d4a96a; }
+.status-done      { background: #e6f4ee; color: #70b8a0; }
+.status-cancelled { background: #ffe4e4; color: #c97070; }
+[data-theme="dark"] .status-progress  { background: #3d2e10; }
+[data-theme="dark"] .status-done      { background: #1a3029; }
+[data-theme="dark"] .status-cancelled { background: #3d1e1e; }
+
+.order-amount { font-family: 'Unbounded', sans-serif; font-weight: 800; font-size: 0.9rem; color: var(--text); white-space: nowrap; }
+
+/* ══════════════════════════════════
+   ТАЙМЕР (ПОМОДОРО)
+   ══════════════════════════════════ */
+.timer-ring {
+  width: 180px; height: 180px;
+  margin: 0 auto 20px;
+  position: relative;
+}
+
+.timer-ring-svg   { width: 100%; height: 100%; transform: rotate(-90deg); }
+.timer-ring-bg    { fill: none; stroke: var(--border); stroke-width: 8; }
+.timer-ring-fill  { fill: none; stroke: var(--accent); stroke-width: 8; stroke-linecap: round; stroke-dasharray: 502; stroke-dashoffset: 502; transition: stroke-dashoffset 1s linear; }
+
+.timer-ring-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.timer-ring-time  { font-family: 'Unbounded', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--text); }
+.timer-ring-label { font-size: 0.68rem; color: var(--text3); font-weight: 700; margin-top: 2px; }
+
+.timer-controls { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+
+/* ── Список збережених сесій ── */
+.session-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 14px;
+  background: var(--bg2);
+  border-radius: 10px;
+  border: 1.5px solid var(--border);
+  font-size: 0.84rem;
+  animation: fadeUp 0.25s both;
+}
+.session-task     { font-weight: 700; color: var(--text); }
+.session-duration { font-family: 'Unbounded', sans-serif; font-weight: 800; font-size: 0.76rem; color: var(--accent); }
+.session-date     { font-size: 0.7rem; color: var(--text3); }
+
+/* ══════════════════════════════════
+   ЗВИЧКИ
+   ══════════════════════════════════ */
+.habits-list { display: flex; flex-direction: column; gap: 10px; }
+
+.habit-item {
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 16px;
+  animation: fadeUp 0.25s both;
+}
+
+.habit-header  { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.habit-name    { font-weight: 800; font-size: 0.9rem; color: var(--text); flex: 1; }
+.habit-streak  { display: flex; align-items: center; gap: 4px; font-size: 0.76rem; font-weight: 800; color: var(--warn); }
+
+/* ── Сітка днів тижня ── */
+.habit-week { display: flex; gap: 5px; }
+
+.habit-day {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  border: 1.5px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: var(--text3);
+  transition: all 0.15s;
+}
+.habit-day.done             { background: var(--accent); border-color: var(--accent); color: #fff; }
+.habit-day:hover:not(.done) { background: var(--accent4); border-color: var(--accent3); color: var(--accent); }
+
+/* ── Прогрес-бар звички ── */
+.habit-progress { height: 4px; background: var(--border); border-radius: 99px; margin-top: 10px; overflow: hidden; }
+.habit-progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 99px; transition: width 0.5s ease; }
+
+/* ══════════════════════════════════
+   ЦІЛІ
+   ══════════════════════════════════ */
+.goals-list { display: flex; flex-direction: column; gap: 12px; }
+
+.goal-card {
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 18px;
+  animation: fadeUp 0.25s both;
+}
+
+.goal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.goal-title   { font-weight: 800; font-size: 0.92rem; color: var(--text); }
+.goal-percent { font-family: 'Unbounded', sans-serif; font-size: 0.82rem; font-weight: 700; color: var(--accent); }
+
+.goal-progress-bar  { height: 8px; background: var(--border); border-radius: 99px; overflow: hidden; margin-bottom: 8px; }
+.goal-progress-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--accent), var(--accent2)); transition: width 0.6s cubic-bezier(0.34,1.3,0.64,1); }
+
+.goal-meta { display: flex; align-items: center; justify-content: space-between; font-size: 0.74rem; color: var(--text3); font-weight: 600; }
+.goal-category { padding: 2px 8px; border-radius: 99px; font-size: 0.66rem; font-weight: 800; background: var(--accent4); color: var(--accent); }
+
+/* ══════════════════════════════════
+   ПОСИЛАННЯ (Закладки)
+   ══════════════════════════════════ */
+.links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.link-card {
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: border-color 0.18s, transform 0.15s;
+  animation: fadeUp 0.25s both;
+  cursor: pointer;
+  text-decoration: none;
+}
+.link-card:hover { border-color: var(--accent3); transform: translateY(-2px); }
+
+.link-favicon {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  background: var(--accent4);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 1rem;
+}
+
+.link-info   { flex: 1; min-width: 0; }
+.link-title  { font-weight: 700; font-size: 0.84rem; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.link-url    { font-size: 0.7rem; color: var(--text3); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

@@ -1,0 +1,107 @@
+/* ════════════════════════════════════════════
+   01-base.css - Базові змінні та скидання стилів
+   ════════════════════════════════════════════ */
+
+/* ── Кольорові змінні (світла тема) ── */
+:root {
+  --bg: #f7f5ff;
+  --bg2: #ede9fd;
+  --bg3: #e2dcfb;
+  --card: #ffffff;
+  --card2: #f0ecff;
+
+  --border: #d4caf5;
+  --text: #2a1f4f;
+  --text2: #6b5fa0;
+  --text3: #a99fd0;
+
+  --accent: #7c5cbf;
+  --accent2: #9b7de0;
+  --accent3: #bfa3f0;
+  --accent4: #e8e1ff;
+
+  --danger: #c97070;
+  --success: #70b8a0;
+  --warn: #d4a96a;
+
+  --shadow: rgba(124,92,191,0.10);
+  --shadow2: rgba(124,92,191,0.18);
+
+  --radius: 16px;
+  --radius2: 20px;
+  --sidebar-w: 248px;
+  --transition: 0.2s ease;
+}
+
+/* ── Темна тема — перевизначення змінних ── */
+[data-theme="dark"] {
+  --bg: #0f0c1e;
+  --bg2: #17122e;
+  --bg3: #201840;
+  --card: #1a1432;
+  --card2: #221c3e;
+
+  --border: #332860;
+  --text: #e8e0ff;
+  --text2: #b09fd8;
+  --text3: #5d4f88;
+
+  --accent: #9b7de0;
+  --accent2: #b89ef5;
+  --accent3: #7c5cbf;
+  --accent4: #261e48;
+
+  --shadow: rgba(0,0,0,0.4);
+  --shadow2: rgba(155,125,224,0.18);
+}
+
+/* ── Скидання браузерних стилів ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background var(--transition), color var(--transition);
+}
+
+/* ── Базові елементи ── */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  font: inherit;
+}
+
+input, textarea, select {
+  font: inherit;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: inherit;
+}
+
+/* ── Кастомний скролбар ── */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent3);
+  border-radius: 999px;
+}

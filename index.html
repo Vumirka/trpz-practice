@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Заголовок сторінки -->
+    <title>NEXIA - Мій робочий простір</title>
+    <!-- Підключення шрифтів -->
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;700;900&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Підключення основних стилів -->
+    <link rel="stylesheet" href="css/01-base.css">
+    <link rel="stylesheet" href="css/02-animations.css">
+    <link rel="stylesheet" href="css/03-layout.css">
+    <link rel="stylesheet" href="css/04-components.css">
+    <link rel="stylesheet" href="css/05-modules.css">
+    <link rel="stylesheet" href="css/06-responsive.css">
+</head>
+<body>
+
+    <!-- ЕКРАН ЗАВАНТАЖЕННЯ (сплеш) -->
+    <div id="splash">
+        <!-- Центральний блок сплеш-екрану -->
+        <div class="splash-center">
+            <!-- Назва проєкту -->
+            <div class="splash-name">NEXIA</div>
+            <!-- Підзаголовок -->
+            <div class="splash-tagline">Твій особистий робочий простір</div>
+            <!-- Прогрес-бар завантаження -->
+            <div class="splash-progress">
+                <div class="splash-progress-bar"></div>
+            </div>
+            <!-- Статус завантаження -->
+            <div class="splash-status" id="splash-status">Ініціалізація...</div>
+        </div>
+    </div>
+
+
+    <!-- КОНТЕЙНЕР ДЛЯ СПОВІЩЕНЬ -->
+    <div id="toast-container"></div>
+
+    <!-- ПАНЕЛЬ КОРИСТУВАЧА -->
+    <div id="user-panel" class="user-panel">
+        <!-- Аватар користувача -->
+        <div class="up-avatar" id="up-avatar-text">?</div>
+        <!-- Ім'я користувача -->
+        <div class="up-name" id="up-name-text">Гість</div>
+        <!-- Email / статус входу -->
+        <div class="up-email" id="up-email-text">Не увійшов</div>
+        <!-- Розділювач -->
+        <hr class="up-divider">
+        <!-- Статистика користувача -->
+        <div class="up-stat">
+            <span class="up-stat-label">Завдань виконано</span>
+            <span class="up-stat-value" id="up-done-tasks">0</span>
+        </div>
+        <div class="up-stat">
+            <span class="up-stat-label">Сесій таймера</span>
+            <span class="up-stat-value" id="up-sessions">0</span>
+        </div>
+        <div class="up-stat">
+            <span class="up-stat-label">Нотаток</span>
+            <span class="up-stat-value" id="up-notes">0</span>
+        </div>
+        <!-- Розділювач -->
+        <hr class="up-divider">
+        <!-- Кнопки дій користувача -->
+        <button class="btn btn-ghost"
+            style="width:100%;justify-content:center"
+            onclick="openModal('modal-profile')">
+            Редагувати профіль
+        </button>
+        <div style="margin-top:8px">
+            <button class="btn btn-danger btn-sm"
+                style="width:100%;justify-content:center"
+                onclick="clearAllData()">
+                Очистити всі дані
+            </button>
+        </div>
+    </div>
+
+
+    <!-- РЕКЛАМНИЙ / ІНФОРМАЦІЙНИЙ БАНЕР (спеціальність 121) -->
+    <div id="promo-banner">
+        <!-- Іконка банера -->
+        <div class="promo-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round">
+                <polyline points="16 18 22 12 16 6" />
+                <polyline points="8 6 2 12 8 18" />
+            </svg>
+        </div>
+        <!-- Вміст банера -->
+        <div class="promo-content">
+            <div class="promo-tag">Спеціальність 121</div>
+            <div class="promo-title">Розробка програмного забезпечення</div>
+            <div class="promo-text">
+                Хочеш створювати такі ж програми самостійно? Дізнайся більше про спеціальність,
+                яка відкриває двері у світ розробки.
+            </div>
+            <a class="promo-link" href="https://www.youtube.com/watch?v=d6vbx01fxCY" target="_blank">
+                Дивитись презентацію →
+            </a>
+        </div>
+        <!-- Кнопка закриття банера -->
+        <span class="promo-close"
+            onclick="document.getElementById('promo-banner').style.display='none'">
+            ✕
+        </span>
+    </div>
+
+
+    <!-- МОДАЛЬНІ ВІКНА (попапи) -->
+
+    <!-- Модалка: профіль користувача -->
+    <div class="modal-overlay" id="modal-profile">
+        <div class="modal">
+            <div class="modal-title">
+                Профіль користувача
+                <span class="modal-close" onclick="closeModal('modal-profile')">✕</span>
+            </div>
+            <!-- Поле: ім'я -->
+            <div class="form-group">
+                <label class="form-label">Ім'я</label>
+                <input class="form-input" id="profile-name" placeholder="Твоє ім'я">
+            </div>
+            <!-- Поле: email -->
+            <div class="form-group">
+                <label class="form-label">Email</label>
+                <input class="form-input" id="profile-email" type="email" placeholder="email@example.com">
+            </div>
+            <!-- Поле: посада -->
+            <div class="form-group">
+                <label class="form-label">Посада / роль</label>
+                <input class="form-input" id="profile-role" placeholder="Розробник, дизайнер...">
+            </div>
+            <!-- Кнопки дій -->
+            <div class="modal-actions">
+                <button class="btn btn-ghost" onclick="closeModal('modal-profile')">Скасувати</button>
+                <button class="btn btn-primary" onclick="saveProfile()">Зберегти</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модалка: нове завдання -->
+    <div class="modal-overlay" id="modal-task">
+        <div class="modal">
+            <div class="modal-title">
+                Нове завдання
+                <span class="modal-close" onclick="closeModal('modal-task')">✕</span>
+            </div>
+            <!-- Поле: назва завдання -->
+            <div class="form-group">
+                <label class="form-label">Назва завдання</label>
+                <input class="form-input" id="task-name-input"
+                    placeholder="Що потрібно зробити?"
+                    onkeydown="if(event.key==='Enter')addTask()">
+            </div>
+            <!-- Поле: пріоритет -->
+            <div class="form-group">
+                <label class="form-label">Пріоритет</label>
+                <select class="form-input" id="task-priority-input">
+                    <option value="low">Низький</option>
+                    <option value="med" selected>Середній</option>
+                    <option value="high">Високий</option>
+                </select>
+            </div>
+            <!-- Поле: дедлайн -->
+            <div class="form-group">
+                <label class="form-label">Дедлайн</label>
+                <input class="form-input" id="task-due-input" type="date">
+            </div>
+            <!-- Поле: підзадачі -->
+            <div class="form-group">
+                <label class="form-label">Підзадачі (через кому)</label>
+                <input class="form-input" id="task-sub-input"
+                    placeholder="Зробити дизайн, Написати код...">
+            </div>
+            <!-- Кнопки дій -->
+            <div class="modal-actions">
+                <button class="btn btn-ghost" onclick="closeModal('modal-task')">Скасувати</button>
+                <button class="btn btn-primary" onclick="addTask()">Додати</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модалка: нова нотатка -->
+    <div class="modal-overlay" id="modal-note">
+        <div class="modal modal-lg">
+            <div class="modal-title">
+                Нова нотатка
+                <span class="modal-close" onclick="closeModal('modal-note')">✕</span>
+            </div>
+            <!-- Поле: заголовок нотатки -->
+            <div class="form-group">
+                <label class="form-label">Заголовок</label>
+                <input class="form-input" id="note-title-input" placeholder="Назва нотатки...">
+            </div>
+            <!-- Поле: текст нотатки -->
+            <div class="form-group">
+                <label class="form-label">Текст</label>
+                <textarea class="form-input" id="note-body-input" rows="5"
+                    placeholder="Напиши тут..."></textarea>
+            </div>
+            <!-- Поле: тег -->
+            <div class="form-group">
+                <label class="form-label">Тег</label>
+                <input class="form-input" id="note-tag-input"
+                    placeholder="Робота, Особисте, Ідея...">
+            </div>
+            <!-- Поле: колір нотатки -->
+            <div class="form-group">
+                <label class="form-label">Колір</label>
+                <div class="color-pills" id="note-color-pills">
+                    <div class="color-pill selected" data-color="#bfa3f0"
+                        style="background:#bfa3f0"
+                        onclick="selectColor(this,'note-color-pills')"></div>
+                    <div class="color-pill" data-color="#a3c4f0"
+                        style="background:#a3c4f0"
+                        onclick="selectColor(this,'note-color-pills')"></div>
+                    <div class="color-pill" data-color="#a3f0c4"
+                        style="background:#a3f0c4"
+                        onclick="selectColor(this,'note-color-pills')"></div>
+                    <div class="color-pill" data-color="#f0c4a3"
+                        style="background:#f0c4a3"
+                        onclick="selectColor(this,'note-color-pills')"></div>
+                    <div class="color-pill" data-color="#f0a3b5"
+                        style="background:#f0a3b5"
+                        onclick="selectColor(this,'note-color-pills')"></div>
+                    <div class="color-pill" data-color="#f0e0a3"
+                        style="background:#f0e0a3"
+                        onclick="selectColor(this,'note-color-pills')"></div>
+                </div>
+            </div>
+            <!-- Поле: завантаження зображення (необов'язково) -->
+            <div class="form-group">
+                <label class="form-label">Зображення (необов'язково)</label>
+                <div class="file-upload-area" id="note-upload-area"
+                    onclick="document.getElementById('note-img-file').click()">
+                    <input type="file" id="note-img-file" accept="image/*"
+                        style="display:none"
+                        onchange="handleNoteImage(event)">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2"
+                        style="margin:0 auto 6px;display:block">
+                        <rect x="3" y="3" width="18" height="18" rx="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <polyline points="21 15 16 10 5 21" />
+                    </svg>
+                    Клікни або перетягни фото сюди
+                </div>
+                <!-- Попередній перегляд зображення -->
+                <img id="note-img-preview"
+                    style="display:none;width:100%;border-radius:10px;margin-top:8px;max-height:160px;object-fit:cover">
+            </div>
+            <!-- Кнопки дій -->
+            <div class="modal-actions">
+                <button class="btn btn-ghost" onclick="closeModal('modal-note')">Скасувати</button>
+                <button class="btn btn-primary" onclick="addNote()">Зберегти</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модалка: нове замовлення -->
+    <div class="modal-overlay" id="modal-order">
+        <div class="modal">
+            <div class="modal-title">
+                Нове замовлення
+                <span class="modal-close" onclick="closeModal('modal-order')">✕</span>
+            </div>
+            <!-- Поле: клієнт -->
+            <div class="form-group">
+                <label class="form-label">Клієнт</label>
+                <input class="form-input" id="order-client-input" placeholder="Ім'я клієнта">
+            </div>
+            <!-- Поле: опис замовлення -->
+            <div class="form-group">
+                <label class="form-label">Опис</label>
+                <input class="form-input" id="order-desc-input" placeholder="Що замовлено?">
+            </div>
+            <!-- Поле: сума -->
+            <div class="form-group">
+                <label class="form-label">Сума (грн)</label>
+                <input class="form-input" id="order-amount-input" type="number" placeholder="0">
+            </div>
+            <!-- Поле: статус замовлення -->
+            <div class="form-group">
+                <label class="form-label">Статус</label>
+                <select class="form-input" id="order-status-input">
+                    <option value="new">Нове</option>
+                    <option value="progress">В роботі</option>
+                    <option value="done">Виконано</option>
+                    <option value="cancelled">Скасовано</option>
+                </select>
+            </div>
+            <!-- Поле: дедлайн -->
+            <div class="form-group">
+                <label class="form-label">Дедлайн</label>
+                <input class="form-input" id="order-due-input" type="date">
+            </div>
+            <!-- Кнопки дій -->
+            <div class="modal-actions">
+                <button class="btn btn-ghost" onclick="closeModal('modal-order')">Скасувати</button>
+                <button class="btn btn-primary" onclick="addOrder()">Додати</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модалка: новий фінансовий запис (доходи / витрати) -->
+    <div class="modal-overlay" id="modal-income">
+        <div class="modal">
+            <div class="modal-title">
+                Новий запис
+                <span class="modal-close" onclick="closeModal('modal-income')">✕</span>
+            </div>
+            <!-- Поле: опис -->
+            <div class="form-group">
+                <label class="form-label">Опис</label>
+                <input class="form-input" id="income-desc-input"
+                    placeholder="Джерело або витрата...">
+            </div>
+            <!-- Поле: сума -->
+            <div class="form-group">
+                <label class="form-label">Сума (грн)</label>
+                <input class="form-input" id="income-amount-input" type="number" placeholder="0">
+            </div>
+            <!-- Поле: категорія -->
+            <div class="form-group">
+                <label class="form-label">Категорія</label>
+                <select class="form-input" id="income-cat-input">
+                    <option value="Фриланс">Фриланс</option>
+                    <option value="Зарплата">Зарплата</option>
+                    <option value="Проект">Проект</option>
+                    <option value="Їжа">Їжа</option>
+                    <option value="Транспорт">Транспорт</option>
+                    <option value="Розваги">Розваги</option>
+                    <option value="Інше">Інше</option>
+                </select>
+            </div>
+            <!-- Поле: тип операції -->
+            <div class="form-group">
+                <label class="form-label">Тип</label>
+                <select class="form-input" id="income-type-input">
+                    <option value="income">Дохід</option>
+                    <option value="expense">Витрата</option>
+                </select>
+            </div>
+            <!-- Кнопки дій -->
+            <div class="modal-actions">
+                <button class="btn btn-ghost" onclick="closeModal('modal-income')">Скасувати</button>
+                <button class="btn btn-primary" onclick="addIncome()">Зберегти</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модалка: нова картка Kanban -->
+    <div class="modal-overlay" id="modal-kanban">
+        <div class="modal">
+            <div class="modal-title">
+                Нова картка
+                <span class="modal-close" onclick="closeModal('modal-kanban')">✕</span>
+            </div>
+            <!-- Поле: назва задачі -->
+            <div class="form-group">
+                <label class="form-label">Назва</label>
+                <input class="form-input" id="kanban-card-input"
+                    placeholder="Опиши задачу..."
+                    onkeydown="if(event.key==='Enter')saveKanbanCard()">
+            </div>
+            <!-- Поле: опис -->
+            <div class="form-group">
+                <label class="form-label">Опис</label>
+                <textarea class="form-input" id="kanban-desc-input"
+                    rows="3" placeholder="Деталі..."></textarea>
+            </div>
+            <!-- Поле: тег -->
+            <div class="form-group">
+                <label class="form-label">Тег</label>
+                <input class="form-input" id="kanban-tag-input"
+                    placeholder="Design / Dev / Marketing...">
+            </div>
+            <!-- Кнопки дій -->
+            <div class="modal-actions">
+                <button class="btn btn-ghost" onclick="closeModal('modal-kanban')">Скасувати</button>
+                <button class="btn btn-primary" onclick="saveKanbanCard()">Додати</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модалка: нова звичка -->
+    <div class="modal-overlay" id="modal-habit">
+        <div class="modal">
+            <div class="modal-title">
+                Нова звичка
+                <span class="modal-close" onclick="closeModal('modal-habit')">✕</span>
+            </div>
+            <!-- Поле: назва звички -->
+            <div class="form-group">
+                <label class="form-label">Назва звички</label>
+                <input class="form-input" id="habit-name-input"
+                    placeholder="Читання, спорт, медитація...">
+            </div>
+            <!-- Поле: ціль (кількість днів) -->
+            <div class="form-group">
+                <label class="form-label">Ціль (днів на тиждень)</label>
+                <select class="form-input" id="habit-goal-input">
+                    <option value="3">3 дні</option>
+                    <option value="5">5 днів</option>
+                    <option value="7" selected>7 днів</option>
+                </select>
+            </div>
+            <!-- Поле: іконка -->
+            <div class="form-group">
+                <label class="form-label">Іконка</label>
+                <input class="form-input" id="habit-icon-input"
+                    placeholder="📚 або будь-який символ" maxlength="4">
+            </div>
+            <!-- Кнопки дій -->
+            <div class="modal-actions">
+                <button class="btn btn-ghost" onclick="closeModal('modal-habit')">Скасувати</button>
+                <button class="btn btn-primary" onclick="addHabit()">Створити</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модалка: нова ціль -->
+    <div class="modal-overlay" id="modal-goal">
+        <div class="modal">
+            <div class="modal-title">
+                Нова ціль
+                <span class="modal-close" onclick="closeModal('modal-goal')">✕</span>
+            </div>
+            <!-- Поле: назва цілі -->
+            <div class="form-group">
+                <label class="form-label">Назва цілі</label>
+                <input class="form-input" id="goal-name-input"
+                    placeholder="Вивчити JavaScript...">
+            </div>
+            <!-- Поле: категорія -->
+            <div class="form-group">
+                <label class="form-label">Категорія</label>
+                <select class="form-input" id="goal-cat-input">
+                    <option value="Навчання">Навчання</option>
+                    <option value="Кар'єра">Кар'єра</option>
+                    <option value="Здоров'я">Здоров'я</option>
+                    <option value="Фінанси">Фінанси</option>
+                    <option value="Особисте">Особисте</option>
+                </select>
+            </div>
+            <!-- Поле: поточний прогрес -->
+            <div class="form-group">
+                <label class="form-label">Поточний прогрес (%)</label>
+                <input class="form-input" id="goal-progress-input"
+                    type="number" min="0" max="100" value="0">
+            </div>
+            <!-- Поле: дедлайн -->
+            <div class="form-group">
+                <label class="form-label">Дедлайн</label>
+                <input class="form-input" id="goal-due-input" type="date">
+            </div>
+            <!-- Кнопки дій -->
+            <div class="modal-actions">
+                <button class="btn btn-ghost" onclick="closeModal('modal-goal')">Скасувати</button>
+                <button class="btn btn-primary" onclick="addGoal()">Додати</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модалка: зберегти посилання -->
+    <div class="modal-overlay" id="modal-link">
+        <div class="modal">
+            <div class="modal-title">
+                Зберегти посилання
+                <span class="modal-close" onclick="closeModal('modal-link')">✕</span>
+            </div>
+            <!-- Поле: назва ресурсу -->
+            <div class="form-group">
+                <label class="form-label">Назва</label>
+                <input class="form-input" id="link-title-input" placeholder="Назва ресурсу">
+            </div>
+            <!-- Поле: URL адреса -->
+            <div class="form-group">
+                <label class="form-label">URL</label>
+                <input class="form-input" id="link-url-input" placeholder="https://...">
+            </div>
+            <!-- Поле: іконка (емодзі) -->
+            <div class="form-group">
+                <label class="form-label">Іконка (емодзі)</label>
+                <input class="form-input" id="link-icon-input" placeholder="🔗" maxlength="4">
+            </div>
+            <!-- Кнопки дій -->
+            <div class="modal-actions">
+                <button class="btn btn-ghost" onclick="closeModal('modal-link')">Скасувати</button>
+                <button class="btn btn-primary" onclick="addLink()">Зберегти</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====================================================== -->
+    <!-- ОСНОВНА ОБОЛОНКА ЗАСТОСУНКУ -->
+    <!-- ====================================================== -->
+    <div id="app">
+
+        <!-- БІЧНА ПАНЕЛЬ (САЙДБАР) -->
+        <aside id="sidebar">
+            <!-- Шапка сайдбару з логотипом -->
+            <div class="sidebar-header">
+                <div class="logo-mark">
+                    N
+                </div>
+                <div class="logo-text">NEXIA</div>
+            </div>
+
+            <!-- Навігаційне меню -->
+            <nav class="sidebar-nav">
+
+                <!-- Секція: Головне -->
+                <div class="nav-section-label">Головне</div>
+                <div class="nav-item active" data-page="dashboard" onclick="navigate('dashboard',this)">
+                    <span class="nav-icon">
+                        <!-- Іконка дашборду -->
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+                            <rect x="3" y="3" width="7" height="7" rx="1.5" />
+                            <rect x="14" y="3" width="7" height="7" rx="1.5" />
+                            <rect x="3" y="14" width="7" height="7" rx="1.5" />
+                            <rect x="14" y="14" width="7" height="7" rx="1.5" />
+                        </svg>
+                    </span>
+                    <span class="nav-label">Дашборд</span>
+                </div>
+
+                <!-- Секція: Продуктивність -->
+                <div class="nav-section-label" style="margin-top:10px">Продуктивність</div>
+                <div class="nav-item" data-page="tasks" onclick="navigate('tasks',this)">
+                    <span class="nav-icon">
+                        <!-- Іконка завдань -->
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+                            <path d="M9 11l3 3L22 4" />
+                            <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
+                        </svg>
+                    </span>
+                    <span class="nav-label">Завдання</span>
+                    <span class="nav-badge" id="tasks-badge">0</span>
+                </div>
+                <div class="nav-item" data-page="kanban" onclick="navigate('kanban',this)">
+                    <span class="nav-icon">
+                        <!-- Іконка Kanban дошки -->
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+                            <rect x="3" y="3" width="5" height="18" rx="1.5" />
+                            <rect x="10" y="3" width="5" height="12" rx="1.5" />
+                            <rect x="17" y="3" width="5" height="15" rx="1.5" />
+                        </svg>
+                    </span>
+                    <span class="nav-label">Kanban</span>
+                </div>
+                <div class="nav-item" data-page="habits" onclick="navigate('habits',this)">
+                    <span class="nav-icon">
+                        <!-- Іконка звичок -->
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </span>
+                    <span class="nav-label">Звички</span>
+                </div>
+                <div class="nav-item" data-page="goals" onclick="navigate('goals',this)">
+                    <span class="nav-icon">
+                        <!-- Іконка цілей -->
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <circle cx="12" cy="12" r="6" />
+                            <circle cx="12" cy="12" r="2" />
+                        </svg>
+                    </span>
+                    <span class="nav-label">Цілі</span>
+                </div>
+                <div class="nav-item" data-page="timer" onclick="navigate('timer',this)">
+                    <span class="nav-icon">
+                        <!-- Іконка таймера -->
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <polyline points="12 6 12 12 16 14" />
+                        </svg>
+                    </span>
+                    <span class="nav-label">Таймер</span>
+                </div>
+
+                <!-- Секція: Бізнес -->
+                <div class="nav-section-label" style="margin-top:10px">Бізнес</div>
+                <div class="nav-item" data-page="orders" onclick="navigate('orders',this)">
+                    <span class="nav-icon">
+                        <!-- Іконка замовлень -->
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+                            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+                            <line x1="3" y1="6" x2="21" y2="6"/>
+                            <path d="M16 10a4 4 0 01-8 0"/>
+                        </svg>
+                    </span>
+                    <span class="nav-label">Замовлення</span>
+                    <span class="nav-badge" id="orders-badge">0</span>
+                </div>
+                <div class="nav-item" data-page="income" onclick="navigate('income',this)">
+                    <span class="nav-icon">
+                        <!-- Іконка фінансів -->
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+                            <line x1="12" y1="1" x2="12" y2="23" />
+                            <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" />
+                        </svg>
+                    </span>
+                    <span class="nav-label">Фінанси</span>
+                </div>
+
+                <!-- Секція: Знання -->
+                <div class="nav-section-label" style="margin-top:10px">Знання</div>
+                <div class="nav-item" data-page="notes" onclick="navigate('notes',this)">
+                    <span class="nav-icon">
+                        <!-- Іконка нотаток -->
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+                            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                        </svg>
+                    </span>
+                    <span class="nav-label">Нотатки</span>
+                </div>
+                <div class="nav-item" data-page="links" onclick="navigate('links',this)">
+                    <span class="nav-icon">
+                        <!-- Іконка посилань -->
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+                            <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/>
+                            <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/>
+                        </svg>
+                    </span>
+                    <span class="nav-label">Посилання</span>
+                </div>
+            </nav>
+
+            <!-- Підвал сайдбару: налаштування -->
+            <div class="sidebar-footer">
+                <!-- Кнопка перемикання теми (світла / темна) -->
+                <button class="icon-btn" onclick="toggleTheme()" title="Тема" id="theme-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.2" stroke-linecap="round" id="theme-icon">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+                    </svg>
+                </button>
+            </div>
+        </aside>
+
+        <!-- ОСНОВНИЙ КОНТЕНТ -->
+        <main id="main">
+            <!-- Верхня панель (топбар) -->
+            <div class="topbar">
+                <div class="topbar-title" id="topbar-title">Дашборд</div>
+                <div class="topbar-right">
+                    <!-- Поточна дата -->
+                    <div class="topbar-date" id="topbar-date"></div>
+                    <!-- Аватар користувача (відкриває панель) -->
+                    <div class="user-avatar" id="user-avatar" onclick="toggleUserPanel()">?</div>
+                </div>
+            </div>
+
+            <!-- Область вмісту сторінок -->
+            <div class="page-content">
+
+                <!-- ========= СТОРІНКА 1: ДАШБОРД ========= -->
+                <div class="page active" id="page-dashboard">
+                    <!-- Привітання -->
+                    <div class="greeting" id="greeting-text">Привіт!</div>
+                    <div class="greeting-sub" id="greeting-sub">
+                        Сьогодні чудовий день для продуктивності
+                    </div>
+
+                    <!-- Блок швидких дій -->
+                    <div class="quick-actions">
+                        <button class="quick-btn" onclick="openModal('modal-task')">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                                <path d="M9 11l3 3L22 4"/>
+                                <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+                            </svg>
+                            Завдання
+                        </button>
+                        <button class="quick-btn" onclick="openModal('modal-note')">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                            </svg>
+                            Нотатка
+                        </button>
+                        <button class="quick-btn" onclick="openModal('modal-order')">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                                <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+                                <line x1="3" y1="6" x2="21" y2="6"/>
+                            </svg>
+                            Замовлення
+                        </button>
+                        <button class="quick-btn" onclick="openModal('modal-income')">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                                <line x1="12" y1="1" x2="12" y2="23"/>
+                                <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+                            </svg>
+                            Запис
+                        </button>
+                        <button class="quick-btn" onclick="openModal('modal-habit')">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                            Звичка
+                        </button>
+                    </div>
+
+                    <!-- Картки метрик (4 штуки) -->
+                    <div class="grid-4 mb-24">
+                        <!-- Метрика: активні завдання -->
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                    stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round">
+                                    <path d="M9 11l3 3L22 4"/>
+                                    <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+                                </svg>
+                            </div>
+                            <div class="stat-value" id="dash-tasks">0</div>
+                            <div class="stat-label">Активних завдань</div>
+                        </div>
+                        <!-- Метрика: кількість замовлень -->
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                    stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round">
+                                    <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+                                    <line x1="3" y1="6" x2="21" y2="6"/>
+                                </svg>
+                            </div>
+                            <div class="stat-value" id="dash-orders">0</div>
+                            <div class="stat-label">Замовлень</div>
+                        </div>
+                        <!-- Метрика: загальний дохід -->
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                    stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round">
+                                    <line x1="12" y1="1" x2="12" y2="23"/>
+                                    <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+                                </svg>
+                            </div>
+                            <div class="stat-value" id="dash-income">₴0</div>
+                            <div class="stat-label">Загальний дохід</div>
+                        </div>
+                        <!-- Метрика: відпрацьований час -->
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                    stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12 6 12 12 16 14"/>
+                                </svg>
+                            </div>
+                            <div class="stat-value" id="dash-time">0г</div>
+                            <div class="stat-label">Відпрацьовано</div>
+                        </div>
+                    </div>
+
+                    <!-- Блоки контенту дашборду -->
+                    <div class="grid-3 mb-24">
+                        <!-- Картка: останні завдання -->
+                        <div class="card" style="grid-column:1/3">
+                            <div class="card-title">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                                    <path d="M9 11l3 3L22 4"/>
+                                </svg>
+                                Останні завдання
+                            </div>
+                            <div id="dash-recent-tasks">
+                                <div class="empty-state">
+                                    <div class="empty-icon">
+                                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="1.5" opacity="0.4">
+                                            <path d="M9 11l3 3L22 4"/>
+                                            <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+                                        </svg>
+                                    </div>
+                                    <div class="empty-text">Поки немає завдань</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Картка: звички сьогодні -->
+                        <div class="card">
+                            <div class="card-title">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                Звички сьогодні
+                            </div>
+                            <div id="dash-habits">
+                                <div class="empty-state">
+                                    <div class="empty-icon" style="font-size:1.6rem">⭐</div>
+                                    <div class="empty-text">Немає звичок</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Картка: останні замовлення -->
+                    <div class="card">
+                        <div class="card-title">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                                <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+                                <line x1="3" y1="6" x2="21" y2="6"/>
+                            </svg>
+                            Останні замовлення
+                        </div>
+                        <div id="dash-recent-orders">
+                            <div class="empty-state">
+                                <div class="empty-icon">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="1.5" opacity="0.4">
+                                        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+                                        <line x1="3" y1="6" x2="21" y2="6"/>
+                                    </svg>
+                                </div>
+                                <div class="empty-text">Поки немає замовлень</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ========= СТОРІНКА 2: ЗАВДАННЯ ========= -->
+                <div class="page" id="page-tasks">
+                    <!-- Заголовок сторінки -->
+                    <div class="section-title" style="justify-content:space-between">
+                        <span>Завдання</span>
+                        <button class="btn btn-primary" onclick="openModal('modal-task')">+ Нове</button>
+                    </div>
+                    <!-- Рядок швидкого додавання завдання -->
+                    <div class="task-input-row">
+                        <input class="task-input" id="quick-task-input"
+                            placeholder="Швидко додати завдання..."
+                            onkeydown="if(event.key==='Enter')quickAddTask()">
+                        <select class="task-input" style="max-width:130px" id="quick-priority">
+                            <option value="low">Низький</option>
+                            <option value="med" selected>Середній</option>
+                            <option value="high">Високий</option>
+                        </select>
+                        <button class="btn btn-primary" onclick="quickAddTask()">+ Додати</button>
+                    </div>
+                    <!-- Фільтри завдань -->
+                    <div class="task-filter-row">
+                        <div class="filter-chip active" onclick="filterTasks('all',this)">Всі</div>
+                        <div class="filter-chip" onclick="filterTasks('active',this)">Активні</div>
+                        <div class="filter-chip" onclick="filterTasks('done',this)">Виконані</div>
+                        <div class="filter-chip" onclick="filterTasks('high',this)">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"
+                                style="display:inline;margin-right:3px">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                            Важливі
+                        </div>
+                    </div>
+                    <!-- Список завдань -->
+                    <div class="task-list" id="task-list"></div>
+                </div>
+
+                <!-- ========= СТОРІНКА 3: KANBAN ========= -->
+                <div class="page" id="page-kanban">
+                    <div class="section-title">Kanban Board</div>
+                    <div class="kanban-board">
+                        <!-- Колонка: До виконання -->
+                        <div class="kanban-col">
+                            <div class="kanban-col-header">
+                                <div class="kanban-col-title">
+                                    <span class="col-dot dot-todo"></span>
+                                    До виконання
+                                </div>
+                                <span class="kanban-count" id="cnt-todo">0</span>
+                            </div>
+                            <div class="kanban-cards" id="kanban-todo"></div>
+                            <button class="kanban-add-btn" onclick="openKanban('todo')">+ Картку</button>
+                        </div>
+                        <!-- Колонка: В процесі -->
+                        <div class="kanban-col">
+                            <div class="kanban-col-header">
+                                <div class="kanban-col-title">
+                                    <span class="col-dot dot-progress"></span>
+                                    В процесі
+                                </div>
+                                <span class="kanban-count" id="cnt-progress">0</span>
+                            </div>
+                            <div class="kanban-cards" id="kanban-progress"></div>
+                            <button class="kanban-add-btn" onclick="openKanban('progress')">+ Картку</button>
+                        </div>
+                        <!-- Колонка: Виконано -->
+                        <div class="kanban-col">
+                            <div class="kanban-col-header">
+                                <div class="kanban-col-title">
+                                    <span class="col-dot dot-done"></span>
+                                    Виконано
+                                </div>
+                                <span class="kanban-count" id="cnt-done">0</span>
+                            </div>
+                            <div class="kanban-cards" id="kanban-done"></div>
+                            <button class="kanban-add-btn" onclick="openKanban('done')">+ Картку</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ========= СТОРІНКА 4: ЗВИЧКИ ========= -->
+                <div class="page" id="page-habits">
+                    <div class="section-title" style="justify-content:space-between">
+                        <span>Трекер звичок</span>
+                        <button class="btn btn-primary" onclick="openModal('modal-habit')">+ Нова</button>
+                    </div>
+                    <!-- Список звичок -->
+                    <div class="habits-list" id="habits-list"></div>
+                </div>
+
+                <!-- ========= СТОРІНКА 5: ЦІЛІ ========= -->
+                <div class="page" id="page-goals">
+                    <div class="section-title" style="justify-content:space-between">
+                        <span>Мої цілі</span>
+                        <button class="btn btn-primary" onclick="openModal('modal-goal')">+ Нова ціль</button>
+                    </div>
+                    <!-- Список цілей -->
+                    <div class="goals-list" id="goals-list"></div>
+                </div>
+
+                <!-- ========= СТОРІНКА 6: ТАЙМЕР ========= -->
+                <div class="page" id="page-timer">
+                    <div class="section-title">Таймер / Pomodoro</div>
+                    <div class="grid-2">
+                        <!-- Блок поточної сесії -->
+                        <div class="card" style="text-align:center">
+                            <div class="card-title" style="justify-content:center">Поточна сесія</div>
+                            <!-- Назва задачі -->
+                            <div class="form-group" style="text-align:left">
+                                <label class="form-label">Назва задачі</label>
+                                <input class="form-input" id="timer-task-name"
+                                    placeholder="Над чим працюєш?">
+                            </div>
+                            <!-- Кругова шкала таймера -->
+                            <div class="timer-ring">
+                                <svg class="timer-ring-svg" viewBox="0 0 180 180">
+                                    <circle class="timer-ring-bg" cx="90" cy="90" r="80"/>
+                                    <circle class="timer-ring-fill" id="timer-ring-fill" cx="90" cy="90" r="80"/>
+                                </svg>
+                                <div class="timer-ring-text">
+                                    <div class="timer-ring-time" id="timer-display">00:00:00</div>
+                                    <div class="timer-ring-label" id="timer-mode-label">Готовий</div>
+                                </div>
+                            </div>
+                            <!-- Кнопки керування таймером -->
+                            <div class="timer-controls">
+                                <button class="btn btn-primary" id="timer-start-btn" onclick="startTimer()">
+                                    ▶ Старт
+                                </button>
+                                <button class="btn btn-ghost" id="timer-pause-btn"
+                                    onclick="pauseTimer()" style="display:none">
+                                    ⏸ Пауза
+                                </button>
+                                <button class="btn btn-ghost" onclick="stopTimer()">
+                                    ⏹ Стоп
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Блок: сесії сьогодні -->
+                        <div class="card">
+                            <div class="card-title">Сесії сьогодні</div>
+                            <div class="timer-sessions" id="timer-sessions">
+                                <div class="empty-state">
+                                    <div class="empty-icon">⏱</div>
+                                    <div class="empty-text">Ще не починав</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ========= СТОРІНКА 7: ЗАМОВЛЕННЯ ========= -->
+                <div class="page" id="page-orders">
+                    <div class="section-title" style="justify-content:space-between">
+                        <span>Замовлення</span>
+                        <button class="btn btn-primary" onclick="openModal('modal-order')">+ Нове</button>
+                    </div>
+                    <!-- Список замовлень -->
+                    <div class="orders-list" id="orders-list"></div>
+                </div>
+
+                <!-- ========= СТОРІНКА 8: ФІНАНСИ ========= -->
+                <div class="page" id="page-income">
+                    <div class="section-title" style="justify-content:space-between">
+                        <span>Фінанси</span>
+                        <button class="btn btn-primary" onclick="openModal('modal-income')">+ Додати</button>
+                    </div>
+
+                    <!-- Зведення по фінансах -->
+                    <div class="income-summary">
+                        <!-- Загальний дохід -->
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                    stroke="var(--success)" stroke-width="2.2" stroke-linecap="round">
+                                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                                    <polyline points="17 6 23 6 23 12"/>
+                                </svg>
+                            </div>
+                            <div class="stat-value income-amount-pos" id="total-income-val">₴0</div>
+                            <div class="stat-label">Загальний дохід</div>
+                        </div>
+                        <!-- Витрати -->
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                    stroke="var(--danger)" stroke-width="2.2" stroke-linecap="round">
+                                    <polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/>
+                                    <polyline points="17 18 23 18 23 12"/>
+                                </svg>
+                            </div>
+                            <div class="stat-value income-amount-neg" id="total-expense-val">₴0</div>
+                            <div class="stat-label">Витрати</div>
+                        </div>
+                        <!-- Баланс -->
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                    stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round">
+                                    <line x1="12" y1="1" x2="12" y2="23"/>
+                                    <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+                                </svg>
+                            </div>
+                            <div class="stat-value" id="total-balance-val">₴0</div>
+                            <div class="stat-label">Баланс</div>
+                        </div>
+                    </div>
+
+                    <!-- Таблиця всіх записів -->
+                    <div class="card">
+                        <div class="card-title">Всі записи</div>
+                        <table class="income-table">
+                            <thead>
+                                <tr>
+                                    <th>Опис</th>
+                                    <th>Категорія</th>
+                                    <th>Тип</th>
+                                    <th>Сума</th>
+                                    <th>Дата</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="income-tbody"></tbody>
+                        </table>
+                        <!-- Порожній стан таблиці -->
+                        <div id="income-empty" class="empty-state" style="display:none">
+                            <div class="empty-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.5" opacity="0.4">
+                                    <line x1="12" y1="1" x2="12" y2="23"/>
+                                    <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+                                </svg>
+                            </div>
+                            <div class="empty-text">Записів поки немає</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ========= СТОРІНКА 9: НОТАТКИ ========= -->
+                <div class="page" id="page-notes">
+                    <div class="notes-toolbar">
+                        <div class="section-title" style="margin-bottom:0">Нотатки</div>
+                        <!-- Пошук нотаток -->
+                        <input class="notes-search" id="notes-search"
+                            placeholder="Пошук нотаток..."
+                            oninput="renderNotes()">
+                        <button class="btn btn-primary" onclick="openModal('modal-note')">+ Нова</button>
+                    </div>
+                    <!-- Сітка нотаток -->
+                    <div class="notes-grid" id="notes-grid"></div>
+                </div>
+
+                <!-- ========= СТОРІНКА 10: ПОСИЛАННЯ ========= -->
+                <div class="page" id="page-links">
+                    <div class="section-title" style="justify-content:space-between">
+                        <span>Збережені посилання</span>
+                        <button class="btn btn-primary" onclick="openModal('modal-link')">+ Додати</button>
+                    </div>
+                    <!-- Сітка посилань -->
+                    <div class="links-grid" id="links-grid"></div>
+                </div>
+
+            </div><!-- /page-content -->
+        </main>
+    </div><!-- /app -->
+
+    <!-- Підключення JavaScript -->
+    <script src="js/01-state.js"></script>
+    <script src="js/02-ui.js"></script>
+    <script src="js/03-helpers.js"></script>
+    <script src="js/04-tasks-orders.js"></script>
+    <script src="js/05-finance-kanban-notes.js"></script>
+    <script src="js/06-habits-goals-links-timer.js"></script>
+</body>
+</html>

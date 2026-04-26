@@ -1,0 +1,113 @@
+/* ════════════════════════════════════════════
+   02-animations.css - Анімації та сплеш-екран
+   ════════════════════════════════════════════ */
+
+/* ── Ключові фрейми анімацій ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: .5; }
+}
+
+@keyframes splashReveal {
+  0%   { opacity: 0; transform: scale(0.8) translateY(20px); }
+  60%  { opacity: 1; transform: scale(1.02) translateY(-4px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes splashBarFill {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(124,92,191,0.3); }
+  50%       { box-shadow: 0 0 50px rgba(155,125,224,0.6), 0 0 80px rgba(124,92,191,0.3); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ══════════════════════════════════
+   СПЛЕШ-ЕКРАН — початковий завантажувач
+   ══════════════════════════════════ */
+#splash {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, var(--bg), var(--bg2), var(--bg3) );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease;
+}
+
+/* Прихований стан після завантаження */
+#splash.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── Центральний блок логотипу ── */
+.splash-center {
+  text-align: center;
+}
+
+/* ── Назва додатку з градієнтним текстом ── */
+.splash-name {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 3rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #e8e0ff, #9b7de0, #bfa3f0);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: splashReveal 0.8s 0.2s both, shimmer 3s linear infinite;
+  letter-spacing: -0.02em;
+}
+
+.splash-tagline {
+  font-size: 0.8rem;
+  color: rgba(176,159,216,0.7);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-top: 8px;
+  animation: splashReveal 0.8s 0.4s both;
+}
+
+/* ── Прогрес-бар завантаження ── */
+.splash-progress {
+  width: 180px;
+  height: 4px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 50px;
+  margin: 24px auto 0;
+  overflow: hidden;
+}
+
+.splash-progress-bar {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #7c5cbf, #b89ef5, #7c5cbf);
+  border-radius: 50px;
+  animation:
+    splashBarFill 1.4s 0.6s cubic-bezier(0.4,0,0.2,1) forwards,
+    shimmer 1s linear infinite;
+}
+
+/* ── Статусний текст під прогресом ── */
+.splash-status {
+  font-size: 0.72rem;
+  color: rgba(176,159,216,0.5);
+  margin-top: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  animation: pulse 1.5s ease-in-out infinite;
+}

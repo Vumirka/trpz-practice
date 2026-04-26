@@ -1,0 +1,45 @@
+/* ════════════════════════════════════════════
+   06-responsive.css — Адаптивність (медіазапити)
+   ════════════════════════════════════════════ */
+
+/* ── Планшети (до 900px) ── */
+@media (max-width: 900px) {
+  :root { --sidebar-w: 200px; }
+
+  /* Змінюємо 4 колонки на 2 ── */
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+
+  /* Канбан — 2 колонки ── */
+  .kanban-board { grid-template-columns: 1fr 1fr; }
+
+  /* Фінанси — 2 колонки ── */
+  .income-summary { grid-template-columns: 1fr 1fr; }
+}
+
+/* ── Мобільні (до 640px) ── */
+@media (max-width: 640px) {
+
+  /* Сайдбар — тільки іконки ── */
+  :root { --sidebar-w: 64px; }
+
+  .sidebar-header .logo-text,
+  .nav-label,
+  .nav-badge,
+  .nav-section-label { opacity: 0; }
+
+  /* Фіксуємо відступ контенту ── */
+  #main { margin-left: 64px !important; }
+
+  /* Зменшений відступ контенту ── */
+  .page-content { padding: 14px; }
+
+  /* Усі сітки — одна колонка ── */
+  .grid-2,
+  .grid-3,
+  .grid-4,
+  .kanban-board,
+  .income-summary { grid-template-columns: 1fr; }
+
+  /* Топбар з меншим паддінгом ── */
+  .topbar { padding: 0 14px; }
+}
